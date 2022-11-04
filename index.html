@@ -8,32 +8,34 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="startwin"></div>
+    <div class="startwin">
+      <button id="startbtn">Start</button>
+    </div>
     <nav class="nav-bar">
       <p class="quiz-name">Quiz-ziuQ</p>
     </nav>
-    <div class="bodyy" id="bodyyy">
+    <div class="body" id="bodyyy">
       <div class="quiz-body">
         <div class="question-area">
           <div class="question">
-            <div class="ques-num">Question-1</div>
-            <div class="ques-ques">this is a question</div>
+            <div id="cur-ques-num" class="ques-num">QuestionNum</div>
+            <div id="ques-sentence" class="ques-ques">this is a question</div>
             <form action="">
-              <input type="radio" id="option1" name="option" value="" />
-              <label for="age1">c1</label>
-              <input type="radio" id="option2" name="option" value="" />
-              <label for="age1">c1</label>
-              <input type="radio" id="option3" name="option" value="" />
-              <label for="age1">c1</label>
-              <input type="radio" id="option4" name="option" value="" />
-              <label for="age1">c1</label>
+              <input type="radio"  name="option" value="" />
+              <label id="option1" for="age1">opt1</label><br>
+              <input type="radio"  name="option" value="" />
+              <label id="option2" for="age1">opt2</label><br>
+              <input type="radio"  name="option" value="" />
+              <label id="option3" for="age1">opt3</label><br>
+              <input type="radio"  name="option" value="" />
+              <label id="option4" for="age1">opt4</label>
             </form>
           </div>
           <div class="nav-pallete">
-            <button class="prev-btn btn -hover">&larr;Previous</button>
-            <button class="clear-btn btn -hover">Clear</button>
-            <button class="flag-btn btn -hover">Flag</button>
-            <button class="next-btn btn -hover">Next&rarr;</button>
+            <button id="prevbtn" class="prev-btn btn -hover">&larr;Previous</button>
+            <button id="clearbtn" class="clear-btn btn -hover">Clear</button>
+            <button id="flagbtn" class="flag-btn btn -hover">Flag</button>
+            <button id="nextbtn" class="next-btn btn -hover">Next&rarr;</button>
           </div>
         </div>
         <div class="info-area">
