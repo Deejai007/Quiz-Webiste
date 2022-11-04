@@ -11,13 +11,8 @@
     <div class="startwin"></div>
     <nav class="nav-bar">
       <p class="quiz-name">Quiz-ziuQ</p>
-      <span class="timer-txt"
-        >Time left:
-        <span class="timer">29:30</span>
-      </span>
-      <button class="submit">Submit</button>
     </nav>
-    <div class="bodyy">
+    <div class="bodyy" id="bodyyy">
       <div class="quiz-body">
         <div class="question-area">
           <div class="question">
@@ -35,10 +30,10 @@
             </form>
           </div>
           <div class="nav-pallete">
-            <button class="prev-btn btn">Previous</button>
-            <button class="clear-btn btn">Clear</button>
-            <button class="mfr-btn btn">Mark for review & Next</button>
-            <button class="next-btn btn">Next</button>
+            <button class="prev-btn btn -hover">&larr;Previous</button>
+            <button class="clear-btn btn -hover">Clear</button>
+            <button class="flag-btn btn -hover">Flag</button>
+            <button class="next-btn btn -hover">Next&rarr;</button>
           </div>
         </div>
         <div class="info-area">
@@ -53,7 +48,7 @@
             </div>
             <div class="icyellow iccol">
               <div class="infoicn -dj-yellow">3</div>
-              <span class="infotxt">Marked for review</span>
+              <span class="infotxt">Flagged for review</span>
             </div>
             <div class="icwhite iccol">
               <div class="infoicn -dj-grey">1</div>
@@ -64,22 +59,29 @@
           <div class="ques-status">
             <p class="ques-status-head">Questions</p>
             <div class="grid-container">
-              <div class="grid-item">1</div>
-              <div class="grid-item">2</div>
-              <div class="grid-item">3</div>
-              <div class="grid-item">4</div>
-              <div class="grid-item">5</div>
-              <div class="grid-item">6</div>
-              <div class="grid-item">7</div>
-              <div class="grid-item">8</div>
-              <div class="grid-item">9</div>
-              <div class="grid-item">10</div>
-              <div class="grid-item">11</div>
-              <div class="grid-item">12</div>
-              <div class="grid-item">13</div>
-              <div class="grid-item">14</div>
-              <div class="grid-item">15</div>
+              <div id="grid-item-1"  class="grid-item -hover">1</div>
+              <div id="grid-item-2"  class="grid-item -hover">2</div>
+              <div id="grid-item-3"  class="grid-item -hover">3</div>
+              <div id="grid-item-4"  class="grid-item -hover">4</div>
+              <div id="grid-item-5"  class="grid-item -hover">5</div>
+              <div id="grid-item-6"  class="grid-item -hover">6</div>
+              <div id="grid-item-7"  class="grid-item -hover">7</div>
+              <div id="grid-item-8"  class="grid-item -hover">8</div>
+              <div id="grid-item-9"  class="grid-item -hover">9</div>
+              <div id="grid-item-10" class="grid-item -hover">10</div>
+              <div id="grid-item-11" class="grid-item -hover">11</div>
+              <div id="grid-item-12" class="grid-item -hover">12</div>
+              <div id="grid-item-13" class="grid-item -hover">13</div>
+              <div id="grid-item-14" class="grid-item -hover">14</div>
+              <div id="grid-item-15" class="grid-item -hover">15</div>
             </div>
+          </div>
+          <div class="time-sub">
+            <div class="timer-txt">Time left: </div>
+              
+              <div class="timer"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></div>
+            </div>
+            <button class="submit">Submit</button>
           </div>
         </div>
       </div>
