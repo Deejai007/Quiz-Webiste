@@ -43,11 +43,12 @@ nav {
 }
 
 .bodyy {
-  display: flex;
-  justify-content: space-evenly;
+  /* display: flex; */
+  /* justify-content: space-evenly; */
 }
 .quiz-body {
   display: flex;
+  margin: auto;
   /* width: 100vw; */
   /* height: 100vh; */
   margin-top: 20px;
@@ -161,7 +162,7 @@ nav {
 .grid-item {
   width: 40px;
   height: 40px;
-  background-color: grey;
+  /* background-color: grey; */
   color: white;
   border-radius: 50%;
   text-align: center;

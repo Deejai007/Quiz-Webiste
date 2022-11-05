@@ -1,42 +1,89 @@
 const currquesnum = document.getElementById("cur-ques-num");
 const currques = document.getElementById("ques-sentence");
-const choice1 = document.getElementById("option1");
-const choice2 = document.getElementById("option2");
-const choice3 = document.getElementById("option3");
-const choice4 = document.getElementById("option4");
+const choices = [
+  document.getElementById("option1"),
+  document.getElementById("option2"),
+  document.getElementById("option3"),
+  document.getElementById("option4"),
+];
+
 const submit = document.getElementById("submitbtn");
 const previous = document.getElementById("prevbtn");
 previous.addEventListener("click", showPrevQues);
 const next = document.getElementById("nextbtn");
 next.addEventListener("click", showNextQues);
 const clear = document.getElementById("clearbtn");
+clear.addEventListener("click", handleClear);
 const mainBody = document.getElementById("bodyyy");
 const startbtn = document.getElementById("startbtn");
 startbtn.addEventListener("click", startQuiz);
-// startQuiz();
+let visited = new Array(15).fill(0);
+let checked = new Array(15).fill(0);
 var curct = 0;
 
 function startQuiz() {
   startbtn.classList.add("hide");
   document.getElementById("bodyyy").classList.remove("hide");
   timerstart();
-
   populateData(curct);
+  createOptions();
+  for (let k = 1; k <= 4; k++) {
+    document.getElementById(`choice-1-${k}`).style.display = "inline-block";
+  }
 }
 function showNextQues() {
-  console.log("next");
   if (curct <= 14) {
+    console.log("next");
+
     curct++;
+    for (let k = 1; k <= 4; k++) {
+      document.getElementById(`choice-${curct}-${k}`).style.display = "none";
+    }
+    for (let k = 1; k <= 4; k++) {
+      document.getElementById(`choice-${curct + 1}-${k}`).style.display =
+        "inline-block";
+    }
     populateData(curct);
   }
 }
+
 function showPrevQues() {
-  console.log("prev");
-  if (curct > 0) {
-    curct--;
+  if (curct >= 1) {
+    console.log("prev");
+    curct = curct - 1;
+    for (let k = 1; k <= 4; k++) {
+      document.getElementById(`choice-${curct + 2}-${k}`).style.display =
+        "none";
+    }
+    for (let k = 1; k <= 4; k++) {
+      document.getElementById(`choice-${curct + 1}-${k}`).style.display =
+        "inline-block";
+    }
     populateData(curct);
   }
 }
+function populateData(k) {
+  currquesnum.innerHTML = "Quesiton:" + (k + 1);
+  currques.innerHTML = questions[k].question;
+  choices[0].innerHTML = questions[k].answers[0].option;
+  choices[1].innerHTML = questions[k].answers[1].option;
+  choices[2].innerHTML = questions[k].answers[2].option;
+  choices[3].innerHTML = questions[k].answers[3].option;
+}
+function createOptions() {
+  for (let i = 0; i < 15; i++) {
+    for (let j = 0; j < 4; j++) {
+      var input = document.createElement("input");
+      input.type = "radio";
+
+      input.id = `choice-${i + 1}-${j + 1}`;
+      input.name = `ch-${i + 1}`;
+      input.style.display = "none";
+      choices[j].before(input);
+    }
+  }
+}
+function handleClear() {}
 function timerstart() {
   var sec = 899;
   var time = setInterval(myTimer, 1000);
@@ -56,18 +103,10 @@ function timerstart() {
     }
   }
 }
-function populateData(k) {
-  currquesnum.innerHTML = "Quesiton:" + (k + 1);
-  currques.innerHTML = questions[k].question;
-  choice1.innerHTML = questions[k].answers[0].option;
-  choice2.innerHTML = questions[k].answers[1].option;
-  choice3.innerHTML = questions[k].answers[2].option;
-  choice4.innerHTML = questions[k].answers[3].option;
-}
 
 const questions = [
   {
-    question: "Who is the god of cricke1t?",
+    question: "1Who is the god of cricke1t?",
     answers: [
       { option: "Rohit Sharma", correct: false },
       { option: "Virat Kohli", correct: false },
@@ -202,3 +241,4 @@ const questions = [
     ],
   },
 ];
+// startQuiz();
