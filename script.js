@@ -12,6 +12,7 @@ const startbtn = document.getElementById("startbtn");
 startbtn.addEventListener("click", startQuiz);
 let visited = new Array(15).fill(0);
 let checked = new Array(15).fill(0);
+let quesState = new Array(15).fill(0);
 var curct = 0;
 
 function startQuiz() {
@@ -25,6 +26,9 @@ function startQuiz() {
 function showNextQues() {
   if (curct < 14) {
     console.log("next");
+    if (quesState[curct] != 1) {
+      setState(curct, 2);
+    }
     ++curct;
     document.getElementById(`question-${curct}`).classList.add("hide");
     document.getElementById(`question-${curct + 1}`).classList.remove("hide");
@@ -36,6 +40,10 @@ function showNextQues() {
 function showPrevQues() {
   if (curct >= 1) {
     console.log("prev");
+    if (quesState[curct] != 1) {
+      setState(curct, 2);
+      console.log("ticked" + quesState[curct]);
+    }
     --curct;
     document.getElementById(`question-${curct + 2}`).classList.add("hide");
     document.getElementById(`question-${curct + 1}`).classList.remove("hide");
@@ -51,7 +59,7 @@ function createQuestions() {
 
     let qnum = document.createElement("p");
 
-    qnum.innerHTML = `Question: ${i + 1}`;
+    qnum.innerHTML = `Question: ${i + 1}:`;
     qnum.classList.add("ques-num");
     ques_area.appendChild(qnum);
     let qcontent = document.createElement("p");
@@ -62,6 +70,7 @@ function createQuestions() {
 
     let formx = document.createElement("form");
     formx.id = `form-${i + 1}`;
+    formx.classList.add("grid-container");
     // formx.innerHTML = ;
     ques_area.appendChild(formx);
     for (let j = 0; j < 4; j++) {
@@ -70,6 +79,12 @@ function createQuestions() {
       input.id = `choice-${i + 1}-${j + 1}`;
       input.name = `ch-${i + 1}`;
       // input.style.display = "none";
+      input.addEventListener("click", () => {
+        document.getElementById(
+          `grid-item-${curct + 1}`
+        ).style.backgroundColor = "rgb(0, 165, 0)";
+        quesState[curct] = 1;
+      });
       formx.appendChild(input);
       // choices[j].before(input);
       let lbl = document.createElement("label");
@@ -80,7 +95,7 @@ function createQuestions() {
     var resetbtn = document.createElement("input");
     resetbtn.type = "reset";
     // resetbtn.value = `clear${i + 1}`;
-    // resetbtn.style.display = "none";
+    resetbtn.style.display = "none";
     resetbtn.name = `ch-${i + 1}`;
     resetbtn.id = `reset-${i + 1}`;
     formx.appendChild(resetbtn);
@@ -90,6 +105,8 @@ function createQuestions() {
 function handleClear() {
   console.log("clear");
   document.getElementById(`reset-${curct + 1}`).click();
+
+  setState(curct, 2);
 }
 
 function timerstart() {
@@ -112,6 +129,23 @@ function timerstart() {
   }
 }
 
+function setState(pos, state) {
+  if (state == 0) {
+    document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
+      "grey";
+  }
+  if (state == 1) {
+    document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
+      "rgb(0, 165, 0)";
+    quesState[pos] = 1;
+  } else if (state == 2) {
+    document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
+      "red";
+  } else if (state == 3) {
+    document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
+      "rgb(206, 189, 0)";
+  }
+}
 const questions = [
   {
     question: "1Who is the god of cricke1t?",

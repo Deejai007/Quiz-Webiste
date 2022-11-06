@@ -22,7 +22,7 @@ button {
   background-color: rgb(0, 165, 0);
 }
 .-dj-grey {
-  background-color: rgb(167, 167, 167);
+  background-color: grey;
 }
 .-hover:hover {
   cursor: pointer;
@@ -155,14 +155,14 @@ nav {
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
-  row-gap: 8px;
+  row-gap: 12px;
   /* width: 100%; */
 }
 
 .grid-item {
   width: 40px;
   height: 40px;
-  /* background-color: grey; */
+  background-color: grey;
   color: white;
   border-radius: 50%;
   text-align: center;
