@@ -5,29 +5,54 @@ const previous = document.getElementById("prevbtn");
 previous.addEventListener("click", showPrevQues);
 const next = document.getElementById("nextbtn");
 next.addEventListener("click", showNextQues);
+const flag = document.getElementById("flagbtn");
+flag.addEventListener("click", FlagCurQues);
 const clear = document.getElementById("clearbtn");
 clear.addEventListener("click", handleClear);
 const mainBody = document.getElementById("bodyyy");
 const startbtn = document.getElementById("startbtn");
 startbtn.addEventListener("click", startQuiz);
-let visited = new Array(15).fill(0);
-let checked = new Array(15).fill(0);
+// let visited = new Array(15).fill(0);
+// let checked = new Array(15).fill(0);
 let quesState = new Array(15).fill(0);
 var curct = 0;
-
+Array.from(document.getElementsByClassName("grid-item")).forEach((elem) => {
+  elem.addEventListener("click", () => {
+    console.log(elem);
+    document.getElementById(`question-${curct + 1}`).classList.add("hide");
+    document
+      .getElementById(`question-${elem.innerHTML}`)
+      .classList.remove("hide");
+    if (quesState[curct] != 1) {
+      if (quesState[curct] != 3) {
+        setState(curct, 2);
+      }
+      // setState(curct, 1);
+    }
+    curct = elem.innerHTML - 1;
+  });
+});
 function startQuiz() {
   startbtn.classList.add("hide");
   document.getElementById("bodyyy").classList.remove("hide");
   timerstart();
-  populateData(curct);
+  // populateData(curct);
   createQuestions();
   document.getElementById("question-1").classList.remove("hide");
+  if (quesState[curct] != 1) {
+    if (quesState[curct] != 3) {
+      setState(curct, 2);
+    }
+  }
 }
 function showNextQues() {
   if (curct < 14) {
     console.log("next");
     if (quesState[curct] != 1) {
-      setState(curct, 2);
+      if (quesState[curct] != 3) {
+        setState(curct, 2);
+      }
+      // setState(curct, 1);
     }
     ++curct;
     document.getElementById(`question-${curct}`).classList.add("hide");
@@ -44,12 +69,14 @@ function showPrevQues() {
       setState(curct, 2);
       console.log("ticked" + quesState[curct]);
     }
+
     --curct;
     document.getElementById(`question-${curct + 2}`).classList.add("hide");
     document.getElementById(`question-${curct + 1}`).classList.remove("hide");
     // populateData(curct);
   }
 }
+function updateQuesInfo() {}
 function populateData(k) {}
 function createQuestions() {
   for (let i = 0; i < 15; i++) {
@@ -102,11 +129,18 @@ function createQuestions() {
     ques_area.classList.add("hide");
   }
 }
+
 function handleClear() {
   console.log("clear");
   document.getElementById(`reset-${curct + 1}`).click();
 
   setState(curct, 2);
+}
+function FlagCurQues() {
+  if (quesState[curct] != 1) {
+    quesState[curct] = 3;
+    setState(curct, 3);
+  }
 }
 
 function timerstart() {
@@ -128,7 +162,6 @@ function timerstart() {
     }
   }
 }
-
 function setState(pos, state) {
   if (state == 0) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
@@ -141,11 +174,13 @@ function setState(pos, state) {
   } else if (state == 2) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
       "red";
+    quesState[pos] = 2;
   } else if (state == 3) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
       "rgb(206, 189, 0)";
   }
 }
+
 const questions = [
   {
     question: "1Who is the god of cricke1t?",
@@ -156,6 +191,7 @@ const questions = [
       { option: "Kapil Dev", correct: false },
     ],
   },
+
   {
     question: "2Who is the god of football?",
     answers: [
