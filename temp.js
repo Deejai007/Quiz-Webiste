@@ -1,6 +1,13 @@
-const qsection = document.getElementById("question-part");
+const currquesnum = document.getElementById("cur-ques-num");
+const currques = document.getElementById("ques-sentence");
+const choices = [
+  document.getElementById("option1"),
+  document.getElementById("option2"),
+  document.getElementById("option3"),
+  document.getElementById("option4"),
+];
+const form = document.getElementById("mcq");
 const submit = document.getElementById("submitbtn");
-
 const previous = document.getElementById("prevbtn");
 previous.addEventListener("click", showPrevQues);
 const next = document.getElementById("nextbtn");
@@ -19,77 +26,86 @@ function startQuiz() {
   document.getElementById("bodyyy").classList.remove("hide");
   timerstart();
   populateData(curct);
-  createQuestions();
-  document.getElementById("question-1").classList.remove("hide");
+  createOptions();
+  for (let k = 1; k <= 4; k++) {
+    document.getElementById(`choice-1-${k}`).style.display = "inline-block";
+  }
+  document.getElementById(`reset-${1}`).style.display = "inline-block";
 }
 function showNextQues() {
   if (curct < 14) {
     console.log("next");
-    ++curct;
-    document.getElementById(`question-${curct}`).classList.add("hide");
-    document.getElementById(`question-${curct + 1}`).classList.remove("hide");
 
-    // populateData(curct);
+    curct++;
+    for (let k = 1; k <= 4; k++) {
+      document.getElementById(`choice-${curct}-${k}`).style.display = "none";
+    }
+    document.getElementById(`reset-${curct}`).style.display = "none";
+    document.getElementById(`reset-${curct + 1}`).style.display =
+      "inline-block";
+    for (let k = 1; k <= 4; k++) {
+      document.getElementById(`choice-${curct + 1}-${k}`).style.display =
+        "inline-block";
+    }
+
+    populateData(curct);
   }
 }
 
 function showPrevQues() {
   if (curct >= 1) {
     console.log("prev");
-    --curct;
-    document.getElementById(`question-${curct + 2}`).classList.add("hide");
-    document.getElementById(`question-${curct + 1}`).classList.remove("hide");
-    // populateData(curct);
+    curct = curct - 1;
+    for (let k = 1; k <= 4; k++) {
+      document.getElementById(`choice-${curct + 2}-${k}`).style.display =
+        "none";
+    }
+    document.getElementById(`reset-${curct + 2}`).style.display = "none";
+    document.getElementById(`reset-${curct + 1}`).style.display =
+      "inline-block";
+    for (let k = 1; k <= 4; k++) {
+      document.getElementById(`choice-${curct + 1}-${k}`).style.display =
+        "inline-block";
+    }
+    populateData(curct);
   }
 }
-function populateData(k) {}
-function createQuestions() {
+function populateData(k) {
+  currquesnum.innerHTML = "Quesiton:" + (k + 1);
+  currques.innerHTML = questions[k].question;
+  choices[0].innerHTML = questions[k].answers[0].option;
+  choices[1].innerHTML = questions[k].answers[1].option;
+  choices[2].innerHTML = questions[k].answers[2].option;
+  choices[3].innerHTML = questions[k].answers[3].option;
+}
+function createOptions() {
   for (let i = 0; i < 15; i++) {
-    let ques_area = document.createElement("div");
-    ques_area.id = `question-${i + 1}`;
-    qsection.appendChild(ques_area);
-
-    let qnum = document.createElement("p");
-
-    qnum.innerHTML = `Question: ${i + 1}`;
-    qnum.classList.add("ques-num");
-    ques_area.appendChild(qnum);
-    let qcontent = document.createElement("p");
-
-    qcontent.innerHTML = questions[i].question;
-    qcontent.classList.add("ques-ques");
-    ques_area.appendChild(qcontent);
-
-    let formx = document.createElement("form");
-    formx.id = `form-${i + 1}`;
-    // formx.innerHTML = ;
-    ques_area.appendChild(formx);
     for (let j = 0; j < 4; j++) {
       var input = document.createElement("input");
       input.type = "radio";
+
       input.id = `choice-${i + 1}-${j + 1}`;
       input.name = `ch-${i + 1}`;
-      // input.style.display = "none";
-      formx.appendChild(input);
-      // choices[j].before(input);
-      let lbl = document.createElement("label");
-      lbl.htmlFor = "`choice-${i + 1}-${j + 1}`";
-      lbl.innerHTML = questions[i].answers[j].option;
-      formx.appendChild(lbl);
+      input.style.display = "none";
+      choices[j].before(input);
     }
     var resetbtn = document.createElement("input");
     resetbtn.type = "reset";
-    // resetbtn.value = `clear${i + 1}`;
-    // resetbtn.style.display = "none";
+    resetbtn.value = `clear${i + 1}`;
+    resetbtn.style.display = "none";
     resetbtn.name = `ch-${i + 1}`;
     resetbtn.id = `reset-${i + 1}`;
-    formx.appendChild(resetbtn);
-    ques_area.classList.add("hide");
+
+    form.appendChild(resetbtn);
   }
 }
 function handleClear() {
   console.log("clear");
-  document.getElementById(`reset-${curct + 1}`).click();
+  for (let index = 4; index >= 1; index--) {
+    let el = document.getElementById(`choice-${curct + 1}-${index}`);
+    console.log(el);
+    el.checked = "false";
+  }
 }
 
 function timerstart() {
