@@ -72,11 +72,49 @@
               
               <div class="timer"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></div>
             </div>
-            <button class="submit">Submit</button>
+            <button onclick="confirmSubmit(1)" class="submit">Submit</button>
           </div>
         </div>
       </div>
     </div>
+    <!--~~~~~~~~~~~~~~~~~~~ Ṛesult Page~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div class="hide" id="result">
+      <div class="scorecard">
+        <p id="resulth">Score Card</p>
+        <p id="congo">Congratulations!</p>
+
+        <div class="scorecircle1 flex">
+          <div class="scorecircle flex">
+            <p id="score-score">10/15</p>
+            <p id="yourscore">Your Score</p>
+          </div>
+        </div>
+      </div>
+      <div class="" id="scoreinfo">
+        <div class="sccard">
+          <div class="countt" id="attemptedct">&#10132;13</div>
+          <br />
+          <span>attempted</span>
+        </div>
+        <div class="flex-r">
+          <div class="sccard">
+            <div class="countt" id="correctct">&#9989;10</div>
+            <br />
+            <span>correct</span>
+          </div>
+          <div class="sccard">
+            <div class="countt" id="wrongct">❌3</div>
+            <br />
+            <span>wrong</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex" id="buttons ">
+        <button class="btn-btn" onclick=location=URL id="startagain">Start Again</button>
+        <button class="btn-btn" id="share">Share</button>
+      </div>
+    </div>
+
   </body>
   <script src="script.js"></script>
 </html>

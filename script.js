@@ -115,8 +115,8 @@ function showPrevQues() {
     // populateData(curct);
   }
 }
-function updateQuesInfo() {}
-function populateData(k) {}
+// function updateQuesInfo() {}
+// function populateData(k) {}
 function createQuestions() {
   for (let i = 0; i < 15; i++) {
     let ques_area = document.createElement("div");
@@ -181,28 +181,6 @@ function FlagCurQues() {
     setState(curct, 3);
   }
 }
-
-function timerstart() {
-  var sec = 899;
-  var time = setInterval(myTimer, 1000);
-  document.getElementById("min").innerHTML = "15";
-  function myTimer() {
-    iconCount();
-    document.getElementById("sec").innerHTML =
-      sec % 60 > 9 ? sec % 60 : "0" + (sec % 60);
-    document.getElementById("min").innerHTML =
-      Math.floor(sec / 60) > 9
-        ? Math.floor(sec / 60)
-        : "0" + Math.floor(sec / 60);
-    sec--;
-    if (sec == -1) {
-      clearInterval(time);
-      alert("Time out!!");
-      // document.getElementById("bodyyy").style.display = "none";
-    }
-  }
-}
-
 function setState(pos, state) {
   if (state == 0) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
@@ -222,6 +200,48 @@ function setState(pos, state) {
   }
 }
 
+function timerstart() {
+  var sec = 899;
+  var time = setInterval(myTimer, 1000);
+  document.getElementById("min").innerHTML = "15";
+  function myTimer() {
+    iconCount();
+    document.getElementById("sec").innerHTML =
+      sec % 60 > 9 ? sec % 60 : "0" + (sec % 60);
+    document.getElementById("min").innerHTML =
+      Math.floor(sec / 60) > 9
+        ? Math.floor(sec / 60)
+        : "0" + Math.floor(sec / 60);
+    sec--;
+    if (sec == -1) {
+      clearInterval(time);
+      // alert("Time out!!");
+      console.log("confirm submitted");
+      showResult();
+      // document.getElementById("bodyyy").style.display = "none";
+    }
+  }
+}
+function confirmSubmit(num) {
+  // clearInterval(time);
+  if (num == 1) {
+    let text = "Are You sure you want to submit?";
+    let val = confirm(text);
+    if (val == true) {
+      console.log("confirm submitted");
+      showResult();
+      // sec = 0;
+    }
+  }
+  // else {
+  // sec = 0;
+  // console.log("confirm submitted");
+  // }
+}
+function showResult() {
+  document.getElementById("bodyyy").classList.add("hide");
+  document.getElementById("result").classList.remove("hide");
+}
 const questions = [
   {
     question: "1Who is the god of cricke1t?",
