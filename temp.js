@@ -1,17 +1,12 @@
-const currquesnum = document.getElementById("cur-ques-num");
-const currques = document.getElementById("ques-sentence");
-const choices = [
-  document.getElementById("option1"),
-  document.getElementById("option2"),
-  document.getElementById("option3"),
-  document.getElementById("option4"),
-];
-const form = document.getElementById("mcq");
+const qsection = document.getElementById("question-part");
 const submit = document.getElementById("submitbtn");
+
 const previous = document.getElementById("prevbtn");
 previous.addEventListener("click", showPrevQues);
 const next = document.getElementById("nextbtn");
 next.addEventListener("click", showNextQues);
+const flag = document.getElementById("flagbtn");
+flag.addEventListener("click", FlagCurQues);
 const clear = document.getElementById("clearbtn");
 clear.addEventListener("click", handleClear);
 const mainBody = document.getElementById("bodyyy");
@@ -19,92 +14,170 @@ const startbtn = document.getElementById("startbtn");
 startbtn.addEventListener("click", startQuiz);
 let visited = new Array(15).fill(0);
 let checked = new Array(15).fill(0);
+let quesState = new Array(15).fill(0);
 var curct = 0;
+function iconCount() {
+  var answed = 0;
+  var notans = 0;
+  var flaged = 0;
+  var yetsee = 0;
+  for (let i = 0; i < 15; i++) {
+    if (
+      document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
+      "limegreen"
+    ) {
+      ++answed;
+      // console.log("yes");
+    } else if (
+      document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
+      "red"
+    ) {
+      ++notans;
+      // console.log("yes");
+    } else if (
+      document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
+      "gray"
+    ) {
+      ++yetsee;
+      // console.log("yes");
+    } else if (
+      document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
+      "darkviolet"
+    ) {
+      ++flaged;
+      // console.log("yes");
+    }
+  }
 
+  document.getElementById("green-info").innerHTML = answed;
+  document.getElementById("red-info").innerHTML = notans;
+  document.getElementById("gray-info").innerHTML = yetsee;
+  document.getElementById("-info").innerHTML = flaged;
+}
+Array.from(document.getElementsByClassName("grid-item")).forEach((elem) => {
+  elem.addEventListener("click", () => {
+    iconCount();
+    console.log(elem);
+    document.getElementById(`question-${curct + 1}`).classList.add("hide");
+    document
+      .getElementById(`question-${elem.innerHTML}`)
+      .classList.remove("hide");
+    curct = elem.innerHTML - 1;
+  });
+});
 function startQuiz() {
   startbtn.classList.add("hide");
   document.getElementById("bodyyy").classList.remove("hide");
   timerstart();
-  populateData(curct);
-  createOptions();
-  for (let k = 1; k <= 4; k++) {
-    document.getElementById(`choice-1-${k}`).style.display = "inline-block";
+  // populateData(curct);
+  createQuestions();
+  document.getElementById("question-1").classList.remove("hide");
+  if (quesState[curct] != 1) {
+    if (quesState[curct] != 3) {
+      setState(curct, 2);
+    }
   }
-  document.getElementById(`reset-${1}`).style.display = "inline-block";
+  iconCount();
 }
 function showNextQues() {
+  iconCount();
   if (curct < 14) {
     console.log("next");
-
-    curct++;
-    for (let k = 1; k <= 4; k++) {
-      document.getElementById(`choice-${curct}-${k}`).style.display = "none";
+    if (quesState[curct] != 1) {
+      if (quesState[curct] != 3) {
+        setState(curct, 2);
+      }
+      // setState(curct, 1);
     }
-    document.getElementById(`reset-${curct}`).style.display = "none";
-    document.getElementById(`reset-${curct + 1}`).style.display =
-      "inline-block";
-    for (let k = 1; k <= 4; k++) {
-      document.getElementById(`choice-${curct + 1}-${k}`).style.display =
-        "inline-block";
-    }
+    ++curct;
+    document.getElementById(`question-${curct}`).classList.add("hide");
+    document.getElementById(`question-${curct + 1}`).classList.remove("hide");
 
-    populateData(curct);
+    // populateData(curct);
   }
 }
 
 function showPrevQues() {
+  iconCount();
   if (curct >= 1) {
     console.log("prev");
-    curct = curct - 1;
-    for (let k = 1; k <= 4; k++) {
-      document.getElementById(`choice-${curct + 2}-${k}`).style.display =
-        "none";
+    if (quesState[curct] != 1) {
+      setState(curct, 2);
+      console.log("ticked" + quesState[curct]);
     }
-    document.getElementById(`reset-${curct + 2}`).style.display = "none";
-    document.getElementById(`reset-${curct + 1}`).style.display =
-      "inline-block";
-    for (let k = 1; k <= 4; k++) {
-      document.getElementById(`choice-${curct + 1}-${k}`).style.display =
-        "inline-block";
-    }
-    populateData(curct);
+
+    --curct;
+    document.getElementById(`question-${curct + 2}`).classList.add("hide");
+    document.getElementById(`question-${curct + 1}`).classList.remove("hide");
+    // populateData(curct);
   }
 }
-function populateData(k) {
-  currquesnum.innerHTML = "Quesiton:" + (k + 1);
-  currques.innerHTML = questions[k].question;
-  choices[0].innerHTML = questions[k].answers[0].option;
-  choices[1].innerHTML = questions[k].answers[1].option;
-  choices[2].innerHTML = questions[k].answers[2].option;
-  choices[3].innerHTML = questions[k].answers[3].option;
-}
-function createOptions() {
+function updateQuesInfo() {}
+function populateData(k) {}
+function createQuestions() {
   for (let i = 0; i < 15; i++) {
+    let ques_area = document.createElement("div");
+    ques_area.id = `question-${i + 1}`;
+    qsection.appendChild(ques_area);
+
+    let qnum = document.createElement("p");
+
+    qnum.innerHTML = `Question: ${i + 1}:`;
+    qnum.classList.add("ques-num");
+    ques_area.appendChild(qnum);
+    let qcontent = document.createElement("p");
+
+    qcontent.innerHTML = questions[i].question;
+    qcontent.classList.add("ques-ques");
+    ques_area.appendChild(qcontent);
+
+    let formx = document.createElement("form");
+    formx.id = `form-${i + 1}`;
+    formx.classList.add("grid-container");
+    // formx.innerHTML = ;
+    ques_area.appendChild(formx);
     for (let j = 0; j < 4; j++) {
       var input = document.createElement("input");
       input.type = "radio";
-
       input.id = `choice-${i + 1}-${j + 1}`;
       input.name = `ch-${i + 1}`;
-      input.style.display = "none";
-      choices[j].before(input);
+      // input.style.display = "none";
+      input.addEventListener("click", () => {
+        // iconCount();
+        document.getElementById(
+          `grid-item-${curct + 1}`
+        ).style.backgroundColor = "limegreen";
+        quesState[curct] = 1;
+      });
+      formx.appendChild(input);
+      // choices[j].before(input);
+      let lbl = document.createElement("label");
+      lbl.htmlFor = "`choice-${i + 1}-${j + 1}`";
+      lbl.innerHTML = questions[i].answers[j].option;
+      formx.appendChild(lbl);
     }
     var resetbtn = document.createElement("input");
     resetbtn.type = "reset";
-    resetbtn.value = `clear${i + 1}`;
+    // resetbtn.value = `clear${i + 1}`;
     resetbtn.style.display = "none";
     resetbtn.name = `ch-${i + 1}`;
     resetbtn.id = `reset-${i + 1}`;
-
-    form.appendChild(resetbtn);
+    formx.appendChild(resetbtn);
+    ques_area.classList.add("hide");
   }
 }
+
 function handleClear() {
+  iconCount();
   console.log("clear");
-  for (let index = 4; index >= 1; index--) {
-    let el = document.getElementById(`choice-${curct + 1}-${index}`);
-    console.log(el);
-    el.checked = "false";
+  document.getElementById(`reset-${curct + 1}`).click();
+  setState(curct, 2);
+}
+function FlagCurQues() {
+  iconCount();
+  if (quesState[curct] != 1) {
+    quesState[curct] = 3;
+    setState(curct, 3);
   }
 }
 
@@ -113,6 +186,7 @@ function timerstart() {
   var time = setInterval(myTimer, 1000);
   document.getElementById("min").innerHTML = "15";
   function myTimer() {
+    // iconCount();
     document.getElementById("sec").innerHTML =
       sec % 60 > 9 ? sec % 60 : "0" + (sec % 60);
     document.getElementById("min").innerHTML =
@@ -127,6 +201,24 @@ function timerstart() {
     }
   }
 }
+function setState(pos, state) {
+  if (state == 0) {
+    document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
+      "gray";
+  }
+  if (state == 1) {
+    document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
+      "limegreen";
+    quesState[pos] = 1;
+  } else if (state == 2) {
+    document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
+      "red";
+    quesState[pos] = 2;
+  } else if (state == 3) {
+    document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
+      "darkviolet";
+  }
+}
 
 const questions = [
   {
@@ -138,6 +230,7 @@ const questions = [
       { option: "Kapil Dev", correct: false },
     ],
   },
+
   {
     question: "2Who is the god of football?",
     answers: [

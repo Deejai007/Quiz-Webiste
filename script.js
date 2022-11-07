@@ -45,16 +45,53 @@ function startQuiz() {
     }
   }
 }
+function iconCount() {
+  var answed = 0;
+  var notans = 0;
+  var flaged = 0;
+  for (let i = 0; i < 15; i++) {
+    if (
+      document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
+      "limegreen"
+    ) {
+      ++answed;
+      // console.log("yes");
+    } else if (
+      document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
+      "red"
+    ) {
+      ++notans;
+      // console.log("yes");
+    } else if (
+      document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
+      "darkviolet"
+    ) {
+      ++flaged;
+      // console.log("yes");
+    }
+  }
+  document.getElementById("green-info").innerHTML = answed;
+  document.getElementById("red-info").innerHTML = notans;
+  document.getElementById("violet-info").innerHTML = flaged;
+  document.getElementById("gray-info").innerHTML =
+    15 - answed - notans - flaged;
+}
 function showNextQues() {
   if (curct < 14) {
     console.log("next");
+    // if (quesState[curct] != 1) {
+    //   if (quesState[curct] != 3) {
+    //     setState(curct, 2);
+    //   }
+    //   // setState(curct, 1);
+    // }
+    ++curct;
     if (quesState[curct] != 1) {
       if (quesState[curct] != 3) {
         setState(curct, 2);
       }
       // setState(curct, 1);
     }
-    ++curct;
     document.getElementById(`question-${curct}`).classList.add("hide");
     document.getElementById(`question-${curct + 1}`).classList.remove("hide");
 
@@ -66,8 +103,10 @@ function showPrevQues() {
   if (curct >= 1) {
     console.log("prev");
     if (quesState[curct] != 1) {
-      setState(curct, 2);
-      console.log("ticked" + quesState[curct]);
+      if (quesState[curct] != 3) {
+        setState(curct, 2);
+      }
+      // setState(curct, 1);
     }
 
     --curct;
@@ -109,7 +148,7 @@ function createQuestions() {
       input.addEventListener("click", () => {
         document.getElementById(
           `grid-item-${curct + 1}`
-        ).style.backgroundColor = "rgb(0, 165, 0)";
+        ).style.backgroundColor = "limegreen";
         quesState[curct] = 1;
       });
       formx.appendChild(input);
@@ -148,6 +187,7 @@ function timerstart() {
   var time = setInterval(myTimer, 1000);
   document.getElementById("min").innerHTML = "15";
   function myTimer() {
+    iconCount();
     document.getElementById("sec").innerHTML =
       sec % 60 > 9 ? sec % 60 : "0" + (sec % 60);
     document.getElementById("min").innerHTML =
@@ -162,14 +202,15 @@ function timerstart() {
     }
   }
 }
+
 function setState(pos, state) {
   if (state == 0) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
-      "grey";
+      "gray";
   }
   if (state == 1) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
-      "rgb(0, 165, 0)";
+      "limegreen";
     quesState[pos] = 1;
   } else if (state == 2) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
@@ -177,7 +218,7 @@ function setState(pos, state) {
     quesState[pos] = 2;
   } else if (state == 3) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
-      "rgb(206, 189, 0)";
+      "darkviolet";
   }
 }
 

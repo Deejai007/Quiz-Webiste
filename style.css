@@ -12,17 +12,17 @@ body {
 button {
   border: none;
 }
-.-dj-yellow {
-  background-color: rgb(206, 189, 0);
+.-dj-violet {
+  background-color: darkviolet;
 }
 .-dj-red {
   background-color: red;
 }
 .-dj-green {
-  background-color: rgb(0, 165, 0);
+  background-color: limegreen;
 }
-.-dj-grey {
-  background-color: grey;
+.-dj-gray {
+  background-color: gray;
 }
 .-hover:hover {
   cursor: pointer;
@@ -162,7 +162,7 @@ nav {
 .grid-item {
   width: 48px;
   height: 48px;
-  background-color: grey;
+  background-color: gray;
   color: white;
   border-radius: 50%;
   text-align: center;
