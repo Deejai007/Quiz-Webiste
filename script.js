@@ -32,14 +32,7 @@ Array.from(document.getElementsByClassName("grid-item")).forEach((elem) => {
     curct = elem.innerHTML - 1;
   });
 });
-function startQuiz() {
-  startbtn.classList.add("hide");
-  document.getElementById("bodyyy").classList.remove("hide");
-  timerstart();
-  // populateData(curct);
-  setQuesFromAPI();
-  // createQuestions();
-}
+
 function iconCount() {
   var answed = 0;
   var notans = 0;
@@ -64,6 +57,7 @@ function iconCount() {
       ++flaged;
       // console.log("yes");
     }
+    // return answed;
   }
   document.getElementById("green-info").innerHTML = answed;
   document.getElementById("red-info").innerHTML = notans;
@@ -112,7 +106,7 @@ function showPrevQues() {
 }
 // function updateQuesInfo() {}
 // function populateData(k) {}
-function createQuestions() {}
+// function createQuestions() {}
 
 function handleClear() {
   console.log("clear");
@@ -184,14 +178,19 @@ function confirmSubmit(num) {
   // }
 }
 let score = 0;
+let wrongg = 0;
 function showResult() {
   for (let i = 0; i < 15; i++) {
     for (let j = 0; j < 4; j++) {
       // console.log("gi");
       let tst = document.getElementById(`choice-${i + 1}-${j + 1}`);
 
-      if (tst.checked && tst.value == "true") {
-        ++score;
+      if (tst.checked) {
+        {
+          if (tst.value == "true") {
+            ++score;
+          } else ++wrongg;
+        }
         // console.log(tst);
         console.log("correct");
       }
@@ -200,10 +199,14 @@ function showResult() {
 
   document.getElementById("bodyyy").classList.add("hide");
   document.getElementById("result").classList.remove("hide");
+  document.getElementById("score-score").innerHTML = `${score}/15`;
+  document.getElementById("attemptedct").innerHTML += `${score + wrongg}`;
+  document.getElementById("correctct").innerHTML += `${score}`;
+  document.getElementById("wrongct").innerHTML += `${wrongg}`;
 }
 let questions = [
   {
-    // question: "1Who is the  of cricke1t?",
+    question: "1Who is the  of cricke1t?",
     answers: [
       { option: "Rohit Sharma", correct: false },
       { option: "Virat Kohli", correct: false },
@@ -342,7 +345,7 @@ let questions = [
 // startQuiz();
 async function setQuesFromAPI() {
   let url =
-    "https://opentdb.com/api.php?amount=15&category=21&difficulty=medium&type=multiple";
+    "https://opentdb.com/api.php?amount=15&category=18&difficulty=easy&type=multiple";
   let result = await fetch(url);
   let data = await result.json();
   console.log(data.results[0]);
@@ -421,3 +424,11 @@ async function setQuesFromAPI() {
   }
 }
 // console.log(questions[0].question);
+function startQuiz() {
+  startbtn.classList.add("hide");
+  document.getElementById("bodyyy").classList.remove("hide");
+  // populateData(curct);
+  setQuesFromAPI();
+  timerstart();
+  // createQuestions();
+}
