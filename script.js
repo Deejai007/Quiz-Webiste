@@ -37,13 +37,8 @@ function startQuiz() {
   document.getElementById("bodyyy").classList.remove("hide");
   timerstart();
   // populateData(curct);
-  createQuestions();
-  document.getElementById("question-1").classList.remove("hide");
-  if (quesState[curct] != 1) {
-    if (quesState[curct] != 3) {
-      setState(curct, 2);
-    }
-  }
+  setQuesFromAPI();
+  // createQuestions();
 }
 function iconCount() {
   var answed = 0;
@@ -117,57 +112,7 @@ function showPrevQues() {
 }
 // function updateQuesInfo() {}
 // function populateData(k) {}
-function createQuestions() {
-  for (let i = 0; i < 15; i++) {
-    let ques_area = document.createElement("div");
-    ques_area.id = `question-${i + 1}`;
-    qsection.appendChild(ques_area);
-
-    let qnum = document.createElement("p");
-
-    qnum.innerHTML = `Question: ${i + 1}:`;
-    qnum.classList.add("ques-num");
-    ques_area.appendChild(qnum);
-    let qcontent = document.createElement("p");
-
-    qcontent.innerHTML = questions[i].question;
-    qcontent.classList.add("ques-ques");
-    ques_area.appendChild(qcontent);
-
-    let formx = document.createElement("form");
-    formx.id = `form-${i + 1}`;
-    formx.classList.add("grid-container");
-    // formx.innerHTML = ;
-    ques_area.appendChild(formx);
-    for (let j = 0; j < 4; j++) {
-      var input = document.createElement("input");
-      input.type = "radio";
-      input.id = `choice-${i + 1}-${j + 1}`;
-      input.name = `ch-${i + 1}`;
-      // input.style.display = "none";
-      input.addEventListener("click", () => {
-        document.getElementById(
-          `grid-item-${curct + 1}`
-        ).style.backgroundColor = "limegreen";
-        quesState[curct] = 1;
-      });
-      formx.appendChild(input);
-      // choices[j].before(input);
-      let lbl = document.createElement("label");
-      lbl.htmlFor = "`choice-${i + 1}-${j + 1}`";
-      lbl.innerHTML = questions[i].answers[j].option;
-      formx.appendChild(lbl);
-    }
-    var resetbtn = document.createElement("input");
-    resetbtn.type = "reset";
-    // resetbtn.value = `clear${i + 1}`;
-    resetbtn.style.display = "none";
-    resetbtn.name = `ch-${i + 1}`;
-    resetbtn.id = `reset-${i + 1}`;
-    formx.appendChild(resetbtn);
-    ques_area.classList.add("hide");
-  }
-}
+function createQuestions() {}
 
 function handleClear() {
   console.log("clear");
@@ -238,13 +183,27 @@ function confirmSubmit(num) {
   // console.log("confirm submitted");
   // }
 }
+let score = 0;
 function showResult() {
+  for (let i = 0; i < 15; i++) {
+    for (let j = 0; j < 4; j++) {
+      // console.log("gi");
+      let tst = document.getElementById(`choice-${i + 1}-${j + 1}`);
+
+      if (tst.checked && tst.value == "true") {
+        ++score;
+        // console.log(tst);
+        console.log("correct");
+      }
+    }
+  }
+
   document.getElementById("bodyyy").classList.add("hide");
   document.getElementById("result").classList.remove("hide");
 }
-const questions = [
+let questions = [
   {
-    question: "1Who is the god of cricke1t?",
+    // question: "1Who is the  of cricke1t?",
     answers: [
       { option: "Rohit Sharma", correct: false },
       { option: "Virat Kohli", correct: false },
@@ -381,3 +340,84 @@ const questions = [
   },
 ];
 // startQuiz();
+async function setQuesFromAPI() {
+  let url =
+    "https://opentdb.com/api.php?amount=15&category=21&difficulty=medium&type=multiple";
+  let result = await fetch(url);
+  let data = await result.json();
+  console.log(data.results[0]);
+  for (let i = 0; i < 15; i++) {
+    questions[i].question = data.results[i].question;
+    let rnd = Math.floor(Math.random() * 4);
+    // console.log(rnd);
+    let k = 0;
+    for (let j = 0; j < 4; j++) {
+      if (j == rnd) {
+        questions[i].answers[j].option = data.results[i].correct_answer;
+        questions[i].answers[j].correct = true;
+      } else {
+        questions[i].answers[j].option = data.results[i].incorrect_answers[k];
+        questions[i].answers[j].correct = false;
+        ++k;
+      }
+    }
+  }
+  // console.log(questions[0].question);
+  for (let i = 0; i < 15; i++) {
+    let ques_area = document.createElement("div");
+    ques_area.id = `question-${i + 1}`;
+    qsection.appendChild(ques_area);
+
+    let qnum = document.createElement("p");
+
+    qnum.innerHTML = `Question: ${i + 1}:`;
+    qnum.classList.add("ques-num");
+    ques_area.appendChild(qnum);
+    let qcontent = document.createElement("p");
+
+    qcontent.innerHTML = questions[i].question;
+    qcontent.classList.add("ques-ques");
+    ques_area.appendChild(qcontent);
+
+    let formx = document.createElement("form");
+    formx.id = `form-${i + 1}`;
+    formx.classList.add("grid-container");
+    // formx.innerHTML = ;
+    ques_area.appendChild(formx);
+    for (let j = 0; j < 4; j++) {
+      var input = document.createElement("input");
+      input.type = "radio";
+      input.id = `choice-${i + 1}-${j + 1}`;
+      input.value = questions[i].answers[j].correct;
+      input.name = `ch-${i + 1}`;
+      // input.style.display = "none";
+      input.addEventListener("click", () => {
+        document.getElementById(
+          `grid-item-${curct + 1}`
+        ).style.backgroundColor = "limegreen";
+        quesState[curct] = 1;
+      });
+      formx.appendChild(input);
+      // choices[j].before(input);
+      let lbl = document.createElement("label");
+      lbl.htmlFor = "`choice-${i + 1}-${j + 1}`";
+      lbl.innerHTML = questions[i].answers[j].option;
+      formx.appendChild(lbl);
+    }
+    var resetbtn = document.createElement("input");
+    resetbtn.type = "reset";
+    // resetbtn.value = `clear${i + 1}`;
+    resetbtn.style.display = "none";
+    resetbtn.name = `ch-${i + 1}`;
+    resetbtn.id = `reset-${i + 1}`;
+    formx.appendChild(resetbtn);
+    ques_area.classList.add("hide");
+  }
+  document.getElementById("question-1").classList.remove("hide");
+  if (quesState[curct] != 1) {
+    if (quesState[curct] != 3) {
+      setState(curct, 2);
+    }
+  }
+}
+// console.log(questions[0].question);

@@ -12,15 +12,44 @@ clear.addEventListener("click", handleClear);
 const mainBody = document.getElementById("bodyyy");
 const startbtn = document.getElementById("startbtn");
 startbtn.addEventListener("click", startQuiz);
-let visited = new Array(15).fill(0);
-let checked = new Array(15).fill(0);
+// let visited = new Array(15).fill(0);
+// let checked = new Array(15).fill(0);
 let quesState = new Array(15).fill(0);
 var curct = 0;
+Array.from(document.getElementsByClassName("grid-item")).forEach((elem) => {
+  elem.addEventListener("click", () => {
+    console.log(elem);
+    document.getElementById(`question-${curct + 1}`).classList.add("hide");
+    document
+      .getElementById(`question-${elem.innerHTML}`)
+      .classList.remove("hide");
+    if (quesState[curct] != 1) {
+      if (quesState[curct] != 3) {
+        setState(curct, 2);
+      }
+      // setState(curct, 1);
+    }
+    curct = elem.innerHTML - 1;
+  });
+});
+function startQuiz() {
+  startbtn.classList.add("hide");
+  document.getElementById("bodyyy").classList.remove("hide");
+  timerstart();
+  // populateData(curct);
+  setQuesFromAPI();
+  createQuestions();
+  document.getElementById("question-1").classList.remove("hide");
+  if (quesState[curct] != 1) {
+    if (quesState[curct] != 3) {
+      setState(curct, 2);
+    }
+  }
+}
 function iconCount() {
   var answed = 0;
   var notans = 0;
   var flaged = 0;
-  var yetsee = 0;
   for (let i = 0; i < 15; i++) {
     if (
       document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
@@ -36,60 +65,34 @@ function iconCount() {
       // console.log("yes");
     } else if (
       document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
-      "gray"
-    ) {
-      ++yetsee;
-      // console.log("yes");
-    } else if (
-      document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
       "darkviolet"
     ) {
       ++flaged;
       // console.log("yes");
     }
   }
-
   document.getElementById("green-info").innerHTML = answed;
   document.getElementById("red-info").innerHTML = notans;
-  document.getElementById("gray-info").innerHTML = yetsee;
-  document.getElementById("-info").innerHTML = flaged;
-}
-Array.from(document.getElementsByClassName("grid-item")).forEach((elem) => {
-  elem.addEventListener("click", () => {
-    iconCount();
-    console.log(elem);
-    document.getElementById(`question-${curct + 1}`).classList.add("hide");
-    document
-      .getElementById(`question-${elem.innerHTML}`)
-      .classList.remove("hide");
-    curct = elem.innerHTML - 1;
-  });
-});
-function startQuiz() {
-  startbtn.classList.add("hide");
-  document.getElementById("bodyyy").classList.remove("hide");
-  timerstart();
-  // populateData(curct);
-  createQuestions();
-  document.getElementById("question-1").classList.remove("hide");
-  if (quesState[curct] != 1) {
-    if (quesState[curct] != 3) {
-      setState(curct, 2);
-    }
-  }
-  iconCount();
+  document.getElementById("violet-info").innerHTML = flaged;
+  document.getElementById("gray-info").innerHTML =
+    15 - answed - notans - flaged;
 }
 function showNextQues() {
-  iconCount();
   if (curct < 14) {
     console.log("next");
+    // if (quesState[curct] != 1) {
+    //   if (quesState[curct] != 3) {
+    //     setState(curct, 2);
+    //   }
+    //   // setState(curct, 1);
+    // }
+    ++curct;
     if (quesState[curct] != 1) {
       if (quesState[curct] != 3) {
         setState(curct, 2);
       }
       // setState(curct, 1);
     }
-    ++curct;
     document.getElementById(`question-${curct}`).classList.add("hide");
     document.getElementById(`question-${curct + 1}`).classList.remove("hide");
 
@@ -98,12 +101,13 @@ function showNextQues() {
 }
 
 function showPrevQues() {
-  iconCount();
   if (curct >= 1) {
     console.log("prev");
     if (quesState[curct] != 1) {
-      setState(curct, 2);
-      console.log("ticked" + quesState[curct]);
+      if (quesState[curct] != 3) {
+        setState(curct, 2);
+      }
+      // setState(curct, 1);
     }
 
     --curct;
@@ -112,8 +116,8 @@ function showPrevQues() {
     // populateData(curct);
   }
 }
-function updateQuesInfo() {}
-function populateData(k) {}
+// function updateQuesInfo() {}
+// function populateData(k) {}
 function createQuestions() {
   for (let i = 0; i < 15; i++) {
     let ques_area = document.createElement("div");
@@ -140,10 +144,10 @@ function createQuestions() {
       var input = document.createElement("input");
       input.type = "radio";
       input.id = `choice-${i + 1}-${j + 1}`;
+      input.value = questions[i].answers[j].correct;
       input.name = `ch-${i + 1}`;
       // input.style.display = "none";
       input.addEventListener("click", () => {
-        // iconCount();
         document.getElementById(
           `grid-item-${curct + 1}`
         ).style.backgroundColor = "limegreen";
@@ -168,37 +172,15 @@ function createQuestions() {
 }
 
 function handleClear() {
-  iconCount();
   console.log("clear");
   document.getElementById(`reset-${curct + 1}`).click();
+
   setState(curct, 2);
 }
 function FlagCurQues() {
-  iconCount();
   if (quesState[curct] != 1) {
     quesState[curct] = 3;
     setState(curct, 3);
-  }
-}
-
-function timerstart() {
-  var sec = 899;
-  var time = setInterval(myTimer, 1000);
-  document.getElementById("min").innerHTML = "15";
-  function myTimer() {
-    // iconCount();
-    document.getElementById("sec").innerHTML =
-      sec % 60 > 9 ? sec % 60 : "0" + (sec % 60);
-    document.getElementById("min").innerHTML =
-      Math.floor(sec / 60) > 9
-        ? Math.floor(sec / 60)
-        : "0" + Math.floor(sec / 60);
-    sec--;
-    if (sec == -1) {
-      clearInterval(time);
-      alert("Time out!!");
-      // document.getElementById("bodyyy").style.display = "none";
-    }
   }
 }
 function setState(pos, state) {
@@ -220,9 +202,65 @@ function setState(pos, state) {
   }
 }
 
-const questions = [
+function timerstart() {
+  var sec = 899;
+  var time = setInterval(myTimer, 1000);
+  document.getElementById("min").innerHTML = "15";
+  function myTimer() {
+    iconCount();
+    document.getElementById("sec").innerHTML =
+      sec % 60 > 9 ? sec % 60 : "0" + (sec % 60);
+    document.getElementById("min").innerHTML =
+      Math.floor(sec / 60) > 9
+        ? Math.floor(sec / 60)
+        : "0" + Math.floor(sec / 60);
+    sec--;
+    if (sec == -1) {
+      clearInterval(time);
+      // alert("Time out!!");
+      console.log("confirm submitted");
+      showResult();
+      // document.getElementById("bodyyy").style.display = "none";
+    }
+  }
+}
+function confirmSubmit(num) {
+  // clearInterval(time);
+  if (num == 1) {
+    let text = "Are You sure you want to submit?";
+    let val = confirm(text);
+    if (val == true) {
+      console.log("confirm submitted");
+      showResult();
+      // sec = 0;
+    }
+  }
+  // else {
+  // sec = 0;
+  // console.log("confirm submitted");
+  // }
+}
+let score = 0;
+function showResult() {
+  for (let i = 0; i < 15; i++) {
+    for (let j = 0; j < 4; j++) {
+      // console.log("gi");
+      let tst = document.getElementById(`choice-${i + 1}-${j + 1}`);
+
+      if (tst.checked && tst.value == "true") {
+        ++score;
+        // console.log(tst);
+        console.log("correct");
+      }
+    }
+  }
+
+  document.getElementById("bodyyy").classList.add("hide");
+  document.getElementById("result").classList.remove("hide");
+}
+let questions = [
   {
-    question: "1Who is the god of cricke1t?",
+    // question: "1Who is the  of cricke1t?",
     answers: [
       { option: "Rohit Sharma", correct: false },
       { option: "Virat Kohli", correct: false },
@@ -359,3 +397,28 @@ const questions = [
   },
 ];
 // startQuiz();
+async function setQuesFromAPI() {
+  let url =
+    "https://opentdb.com/api.php?amount=15&category=21&difficulty=medium&type=multiple";
+  let result = await fetch(url);
+  let data = await result.json();
+  console.log(data.results[0]);
+  for (let i = 0; i < 15; i++) {
+    questions[i].question = data.results[i].question;
+    let rnd = Math.floor(Math.random() * 4);
+    // console.log(rnd);
+    let k = 0;
+    for (let j = 0; j < 4; j++) {
+      if (j == rnd) {
+        questions[i].answers[j].option = data.results[i].correct_answer;
+        questions[i].answers[j].correct = true;
+      } else {
+        questions[i].answers[j].option = data.results[i].incorrect_answers[k];
+        questions[i].answers[j].correct = false;
+        ++k;
+      }
+    }
+  }
+  // console.log(questions[0].question);
+}
+// console.log(questions[0].question);
