@@ -198,6 +198,8 @@ function showResult() {
   }
 
   document.getElementById("bodyyy").classList.add("hide");
+  document.getElementById("mainpage").classList.add("hide");
+  document.getElementById("bodyyy").style.display = "flex";
   document.getElementById("result").classList.remove("hide");
   document.getElementById("score-score").innerHTML = `${score}/15`;
   document.getElementById("attemptedct").innerHTML += `${score + wrongg}`;
@@ -348,6 +350,7 @@ async function setQuesFromAPI() {
     "https://opentdb.com/api.php?amount=15&category=18&difficulty=easy&type=multiple";
   let result = await fetch(url);
   let data = await result.json();
+
   console.log(data.results[0]);
   for (let i = 0; i < 15; i++) {
     questions[i].question = data.results[i].question;
@@ -425,8 +428,8 @@ async function setQuesFromAPI() {
 }
 // console.log(questions[0].question);
 function startQuiz() {
-  startbtn.classList.add("hide");
-  document.getElementById("bodyyy").classList.remove("hide");
+  document.getElementById("startwin").style.display = "none";
+  document.getElementById("bodyyy").style.display = "flex";
   // populateData(curct);
   setQuesFromAPI();
   timerstart();

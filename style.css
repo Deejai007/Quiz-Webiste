@@ -7,7 +7,8 @@
 }
 body {
   height: 100vh;
-  background-color: #b4c5ab;
+  /* background-color: #b4c5ab; */
+  background-image: linear-gradient(145deg, #233da4, #4d1596, #ef1dc1);
 }
 button {
   border: none;
@@ -47,7 +48,7 @@ nav {
   /* justify-content: space-evenly; */
 }
 .quiz-body {
-  display: flex;
+  display: none;
   margin: auto;
   /* width: 100vw; */
   /* height: 100vh; */
@@ -243,7 +244,7 @@ body {
   height: 350px;
   /* height: 50%; */
   background-image: linear-gradient(to bottom, #9b52d4, #7268e2);
-  /* border-radius: 16px; */
+  border-radius: 16px;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   /* border: 10px solid red; */
@@ -330,4 +331,88 @@ body {
   padding: 8px;
   margin: 16px;
   border-radius: 6px;
+}
+/* ~~~~~~~~~~~~~~~Landing Page~~~~~~~~~~~~~~~~~~~~ */
+
+#startwin {
+  max-width: 1024px;
+  width: 100%;
+  height: 80vh;
+  margin: 10vh auto;
+
+  background-color: rgba(255, 255, 255, 0.075);
+  border-radius: 32px;
+}
+.start-img {
+  /* position: absolute; */
+  /* float: right; */
+  /* height: 80vh; */
+  width: 440px;
+  /* margin: 104px 20px; */
+}
+
+.left {
+  width: 50%;
+  /* text-align: c; */
+  /* margin-left: 32px; */
+}
+
+#startbtn {
+  font-size: 32px;
+  background-color: rgb(255, 204, 0);
+  /* width: 96px; */
+  margin-left: 84px;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 16px;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  scale: 1;
+  /* transform: scale(1) 500ms; */
+}
+#startbtn:active {
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  scale: 0.98;
+}
+.iconn1 {
+  font-weight: 100;
+  font-size: 32px;
+}
+
+.iconn {
+  font-size: 32px;
+  margin: 4px;
+}
+.info {
+  height: 64px;
+  /* border: 1px solid red; */
+  margin: 20px;
+  justify-content: flex-start;
+}
+.icon {
+  color: rgba(0, 0, 0, 0.6);
+  /* height: 64px; */
+  margin: auto 16px;
+}
+.data {
+  font-size: 28px;
+  margin-right: 16px;
+}
+.unit {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.75);
+}
+.field {
+  width: 200px;
+  height: 48px;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.114),
+    rgba(255, 255, 255, 0)
+  );
 }

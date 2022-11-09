@@ -6,16 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz App</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
-    <div class="startwin">
-      <button id="startbtn">Start</button>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~Landing Page~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div class="flex-r" id="startwin">
+      <div class="left">
+        <div class="info flex-r">
+          <div class="icon">
+            <i class="iconn1 fa fa-light fa-pen-to-square"></i>
+          </div>
+          <div class="field flex-r">
+            <div class="data">15</div>
+            <div class="unit">Questions</div>
+          </div>
+        </div>
+        <div class="info flex-r">
+          <div class="icon"><i class="iconn1 fa fa-light fa-clock"></i></div>
+          <div class="field flex-r">
+            <div class="data">15</div>
+            <div class="unit">Minutes</div>
+          </div>
+        </div>
+        <div class="info flex-r">
+          <div class="icon">
+            <i class="iconn fa fa-light fa-bolt-lightning"></i>
+          </div>
+          <div class="field flex-r">
+            <div class="data">Easy</div>
+            <div class="unit">Difficulty</div>
+          </div>
+        </div>
+        <button id="startbtn">Start quiz&rarr;</button>
+      </div>
+      <img
+        class="start-img"
+        src="Navo-Programming-removebg-preview.png"
+        alt=""
+      />
     </div>
-    <nav class="nav-bar">
-      <p class="quiz-name">Quiz-ziuQ</p>
-    </nav>
-    <div class="body" id="bodyyy">
-      <div class="quiz-body">
+    <!-- ~~~~~~~~~~~~~~~~~~~~~Test Page~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div class="body"  id="mainpage">
+      <div class="quiz-body" id="bodyyy">
         <div class="question-area">
           <div id="question-part" class="question">
 
@@ -49,6 +82,7 @@
           <hr />
           <div class="ques-status">
             <p class="ques-status-head">Questions</p>
+            <div id="loading">loaddd</div>
             <div id="grid-con" class="grid-container">
               <div id="grid-item-1"  class="grid-item -hover ">1</div>
               <div id="grid-item-2"  class="grid-item -hover ">2</div>
