@@ -389,6 +389,13 @@ body {
   margin: 4px;
 }
 .info {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.154),
+    rgba(255, 255, 255, 0.134),
+    rgba(255, 255, 255, 0.114),
+    rgba(255, 255, 255, 0)
+  );
   height: 64px;
   /* border: 1px solid red; */
   margin: 20px;
@@ -410,9 +417,27 @@ body {
 .field {
   width: 200px;
   height: 48px;
-  background-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.114),
-    rgba(255, 255, 255, 0)
-  );
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~Loading Page~~~~~~~~~~~~~~~~~~~~~~~~ */
+.loadwindow {
+  position: absolute;
+  z-index: 10;
+}
+.loader {
+  margin: auto;
+  border: 20px solid #eaf0f6;
+  border-radius: 50%;
+  border-top: 20px solid #ff7a59;
+  width: 200px;
+  height: 200px;
+  animation: spinner 4s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

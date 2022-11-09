@@ -12,8 +12,6 @@ clear.addEventListener("click", handleClear);
 const mainBody = document.getElementById("bodyyy");
 const startbtn = document.getElementById("startbtn");
 startbtn.addEventListener("click", startQuiz);
-// let visited = new Array(15).fill(0);
-// let checked = new Array(15).fill(0);
 let quesState = new Array(15).fill(0);
 var curct = 0;
 Array.from(document.getElementsByClassName("grid-item")).forEach((elem) => {
@@ -27,7 +25,6 @@ Array.from(document.getElementsByClassName("grid-item")).forEach((elem) => {
       if (quesState[curct] != 3) {
         setState(curct, 2);
       }
-      // setState(curct, 1);
     }
     curct = elem.innerHTML - 1;
   });
@@ -43,21 +40,17 @@ function iconCount() {
       "limegreen"
     ) {
       ++answed;
-      // console.log("yes");
     } else if (
       document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
       "red"
     ) {
       ++notans;
-      // console.log("yes");
     } else if (
       document.getElementById(`grid-item-${i + 1}`).style.backgroundColor ==
       "darkviolet"
     ) {
       ++flaged;
-      // console.log("yes");
     }
-    // return answed;
   }
   document.getElementById("green-info").innerHTML = answed;
   document.getElementById("red-info").innerHTML = notans;
@@ -68,23 +61,15 @@ function iconCount() {
 function showNextQues() {
   if (curct < 14) {
     console.log("next");
-    // if (quesState[curct] != 1) {
-    //   if (quesState[curct] != 3) {
-    //     setState(curct, 2);
-    //   }
-    //   // setState(curct, 1);
-    // }
+
     ++curct;
     if (quesState[curct] != 1) {
       if (quesState[curct] != 3) {
         setState(curct, 2);
       }
-      // setState(curct, 1);
     }
     document.getElementById(`question-${curct}`).classList.add("hide");
     document.getElementById(`question-${curct + 1}`).classList.remove("hide");
-
-    // populateData(curct);
   }
 }
 
@@ -95,7 +80,6 @@ function showPrevQues() {
       if (quesState[curct] != 3) {
         setState(curct, 2);
       }
-      // setState(curct, 1);
     }
 
     --curct;
@@ -104,9 +88,6 @@ function showPrevQues() {
     // populateData(curct);
   }
 }
-// function updateQuesInfo() {}
-// function populateData(k) {}
-// function createQuestions() {}
 
 function handleClear() {
   console.log("clear");
@@ -157,25 +138,18 @@ function timerstart() {
       // alert("Time out!!");
       console.log("confirm submitted");
       showResult();
-      // document.getElementById("bodyyy").style.display = "none";
     }
   }
 }
 function confirmSubmit(num) {
-  // clearInterval(time);
   if (num == 1) {
     let text = "Are You sure you want to submit?";
     let val = confirm(text);
     if (val == true) {
       console.log("confirm submitted");
       showResult();
-      // sec = 0;
     }
   }
-  // else {
-  // sec = 0;
-  // console.log("confirm submitted");
-  // }
 }
 let score = 0;
 let wrongg = 0;
@@ -206,169 +180,52 @@ function showResult() {
   document.getElementById("correctct").innerHTML += `${score}`;
   document.getElementById("wrongct").innerHTML += `${wrongg}`;
 }
-let questions = [
-  {
-    question: "1Who is the  of cricke1t?",
-    answers: [
-      { option: "Rohit Sharma", correct: false },
-      { option: "Virat Kohli", correct: false },
-      { option: "Sachin Tendulkar", correct: true },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
 
-  {
-    question: "2Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "3Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "4Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "5Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "6Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "7Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "8Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "9Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "10Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "11Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "12Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "13Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "14Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "RohSharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-  {
-    question: "15Who is the god of football?",
-    answers: [
-      { option: "Virat Kohli", correct: true },
-      { option: "Rohit Sharma", correct: false },
-      { option: "Sachin Tendulkar", correct: false },
-      { option: "Kapil Dev", correct: false },
-    ],
-  },
-];
-// startQuiz();
 async function setQuesFromAPI() {
   let url =
     "https://opentdb.com/api.php?amount=15&category=18&difficulty=easy&type=multiple";
-  let result = await fetch(url);
-  let data = await result.json();
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
 
-  console.log(data.results[0]);
-  for (let i = 0; i < 15; i++) {
-    questions[i].question = data.results[i].question;
-    let rnd = Math.floor(Math.random() * 4);
-    // console.log(rnd);
-    let k = 0;
-    for (let j = 0; j < 4; j++) {
-      if (j == rnd) {
-        questions[i].answers[j].option = data.results[i].correct_answer;
-        questions[i].answers[j].correct = true;
-      } else {
-        questions[i].answers[j].option = data.results[i].incorrect_answers[k];
-        questions[i].answers[j].correct = false;
-        ++k;
+function startQuiz() {
+  document.getElementById("startwin").style.display = "none";
+  document.getElementById("bodyyy").style.display = "flex";
+  setQuesFromAPI().then((data) => {
+    let questions = [];
+    for (let c = 0; c < 15; c++) {
+      questions[c] = {
+        question: {},
+        answers: [
+          { option: {}, correct: {} },
+          { option: {}, correct: {} },
+          { option: {}, correct: {} },
+          { option: {}, correct: {} },
+        ],
+      };
+    }
+    for (let i = 0; i < 15; i++) {
+      questions[i].question = data.results[i].question;
+      let rnd = Math.floor(Math.random() * 4);
+      let k = 0;
+      for (let j = 0; j < 4; j++) {
+        if (j == rnd) {
+          questions[i].answers[j].option = data.results[i].correct_answer;
+          questions[i].answers[j].correct = true;
+        } else {
+          questions[i].answers[j].option = data.results[i].incorrect_answers[k];
+          questions[i].answers[j].correct = false;
+          ++k;
+        }
       }
     }
-  }
-  // console.log(questions[0].question);
+    createQuestions(questions);
+    timerstart();
+  });
+}
+
+function createQuestions(questions) {
   for (let i = 0; i < 15; i++) {
     let ques_area = document.createElement("div");
     ques_area.id = `question-${i + 1}`;
@@ -388,7 +245,6 @@ async function setQuesFromAPI() {
     let formx = document.createElement("form");
     formx.id = `form-${i + 1}`;
     formx.classList.add("grid-container");
-    // formx.innerHTML = ;
     ques_area.appendChild(formx);
     for (let j = 0; j < 4; j++) {
       var input = document.createElement("input");
@@ -396,7 +252,6 @@ async function setQuesFromAPI() {
       input.id = `choice-${i + 1}-${j + 1}`;
       input.value = questions[i].answers[j].correct;
       input.name = `ch-${i + 1}`;
-      // input.style.display = "none";
       input.addEventListener("click", () => {
         document.getElementById(
           `grid-item-${curct + 1}`
@@ -404,7 +259,6 @@ async function setQuesFromAPI() {
         quesState[curct] = 1;
       });
       formx.appendChild(input);
-      // choices[j].before(input);
       let lbl = document.createElement("label");
       lbl.htmlFor = "`choice-${i + 1}-${j + 1}`";
       lbl.innerHTML = questions[i].answers[j].option;
@@ -412,7 +266,6 @@ async function setQuesFromAPI() {
     }
     var resetbtn = document.createElement("input");
     resetbtn.type = "reset";
-    // resetbtn.value = `clear${i + 1}`;
     resetbtn.style.display = "none";
     resetbtn.name = `ch-${i + 1}`;
     resetbtn.id = `reset-${i + 1}`;
@@ -425,13 +278,4 @@ async function setQuesFromAPI() {
       setState(curct, 2);
     }
   }
-}
-// console.log(questions[0].question);
-function startQuiz() {
-  document.getElementById("startwin").style.display = "none";
-  document.getElementById("bodyyy").style.display = "flex";
-  // populateData(curct);
-  setQuesFromAPI();
-  timerstart();
-  // createQuestions();
 }
