@@ -171,9 +171,7 @@ function showResult() {
     }
   }
 
-  document.getElementById("bodyyy").classList.add("hide");
   document.getElementById("mainpage").classList.add("hide");
-  document.getElementById("bodyyy").style.display = "flex";
   document.getElementById("result").classList.remove("hide");
   document.getElementById("score-score").innerHTML = `${score}/15`;
   document.getElementById("attemptedct").innerHTML += `${score + wrongg}`;
@@ -187,42 +185,6 @@ async function setQuesFromAPI() {
   const response = await fetch(url);
   const data = await response.json();
   return data;
-}
-
-function startQuiz() {
-  document.getElementById("startwin").style.display = "none";
-  document.getElementById("bodyyy").style.display = "flex";
-  setQuesFromAPI().then((data) => {
-    let questions = [];
-    for (let c = 0; c < 15; c++) {
-      questions[c] = {
-        question: {},
-        answers: [
-          { option: {}, correct: {} },
-          { option: {}, correct: {} },
-          { option: {}, correct: {} },
-          { option: {}, correct: {} },
-        ],
-      };
-    }
-    for (let i = 0; i < 15; i++) {
-      questions[i].question = data.results[i].question;
-      let rnd = Math.floor(Math.random() * 4);
-      let k = 0;
-      for (let j = 0; j < 4; j++) {
-        if (j == rnd) {
-          questions[i].answers[j].option = data.results[i].correct_answer;
-          questions[i].answers[j].correct = true;
-        } else {
-          questions[i].answers[j].option = data.results[i].incorrect_answers[k];
-          questions[i].answers[j].correct = false;
-          ++k;
-        }
-      }
-    }
-    createQuestions(questions);
-    timerstart();
-  });
 }
 
 function createQuestions(questions) {
@@ -278,4 +240,42 @@ function createQuestions(questions) {
       setState(curct, 2);
     }
   }
+}
+function startQuiz() {
+  document.getElementById("loading").classList.remove("hide");
+
+  setQuesFromAPI().then((data) => {
+    let questions = [];
+    for (let c = 0; c < 15; c++) {
+      questions[c] = {
+        question: {},
+        answers: [
+          { option: {}, correct: {} },
+          { option: {}, correct: {} },
+          { option: {}, correct: {} },
+          { option: {}, correct: {} },
+        ],
+      };
+    }
+    for (let i = 0; i < 15; i++) {
+      questions[i].question = data.results[i].question;
+      let rnd = Math.floor(Math.random() * 4);
+      let k = 0;
+      for (let j = 0; j < 4; j++) {
+        if (j == rnd) {
+          questions[i].answers[j].option = data.results[i].correct_answer;
+          questions[i].answers[j].correct = true;
+        } else {
+          questions[i].answers[j].option = data.results[i].incorrect_answers[k];
+          questions[i].answers[j].correct = false;
+          ++k;
+        }
+      }
+    }
+    document.getElementById("loading").classList.add("hide");
+    createQuestions(questions);
+    timerstart();
+    document.getElementById("startwin").style.display = "none";
+    document.getElementById("bodyyy").style.display = "flex";
+  });
 }
