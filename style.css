@@ -578,3 +578,12 @@ body {
     background-color: rgba(255, 0, 0, 0.4);
   }
 }
+.foot {
+  background-color: black;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  padding: 4px;
+  top: auto;
+  color: rgba(255, 255, 255, 0.748);
+}
