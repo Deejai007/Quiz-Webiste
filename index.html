@@ -6,110 +6,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz App</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-
     <!-- ~~~~~~~~~~~~~~~~~~~~~Landing Page~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div class="flex-r" id="startwin">
-      <div class="left">
-        <div class="info flex-r">
-          <div class="icon">
-            <i class="iconn1 fa fa-light fa-pen-to-square"></i>
+    <div class="" id="startwin">
+      <h1>TECH TRIVIA</h1>
+      <div class="flex-c">
+        <div class="left">
+          <div class="info flex-r">
+            <div class="icon">
+              <i class="iconn1 fa fa-light fa-pen-to-square"></i>
+            </div>
+            <div class="field flex-r">
+              <div class="data">15</div>
+              <div class="unit">Questions</div>
+            </div>
           </div>
-          <div class="field flex-r">
-            <div class="data">15</div>
-            <div class="unit">Questions</div>
+          <div class="info flex-r">
+            <div class="icon"><i class="iconn1 fa fa-light fa-clock"></i></div>
+            <div class="field flex-r">
+              <div class="data">15</div>
+              <div class="unit">Minutes</div>
+            </div>
           </div>
+          <div class="info flex-r">
+            <div class="icon">
+              <i class="iconn fa fa-light fa-bolt-lightning"></i>
+            </div>
+            <div class="field flex-r">
+              <div class="data">Easy</div>
+              <div class="unit">Difficulty</div>
+            </div>
+          </div>
+          <button id="startbtn">Start quiz&rarr;</button>
         </div>
-        <div class="info flex-r">
-          <div class="icon"><i class="iconn1 fa fa-light fa-clock"></i></div>
-          <div class="field flex-r">
-            <div class="data">15</div>
-            <div class="unit">Minutes</div>
-          </div>
-        </div>
-        <div class="info flex-r">
-          <div class="icon">
-            <i class="iconn fa fa-light fa-bolt-lightning"></i>
-          </div>
-          <div class="field flex-r">
-            <div class="data">Easy</div>
-            <div class="unit">Difficulty</div>
-          </div>
-        </div>
-        <button id="startbtn">Start quiz&rarr;</button>
+        <img
+          class="start-img"
+          src="Navo-Programming-removebg-preview.png"
+          alt=""
+        />
       </div>
-      <img
-        class="start-img"
-        src="Navo-Programming-removebg-preview.png"
-        alt=""
-      />
     </div>
     <!-- ~~~~~~~~~~~~~~~~~~~~~Test Page~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <div class="body"  id="mainpage">
-      <div class="quiz-body" id="bodyyy">
-        <div class="question-area">
-          <div id="question-part" class="question">
 
-          </div>
-          <div class="nav-pallete">
-            <button id="prevbtn" class="prev-btn btn -hover">&larr;Previous</button>
-            <button id="clearbtn" class="clear-btn btn -hover">Clear</button>
-            <button id="flagbtn" class="flag-btn btn -hover">Flag</button>
-            <button id="nextbtn" class="next-btn btn -hover">Next&rarr;</button>
+    <div class="quiz-body hide" id="bodyyy">
+      <div class="navbar">
+        <div class="time-div">
+          <div class="timer-txt">Time left:</div>
+
+          <div class="timer">
+            <span id="min">00</span>:<span id="sec">00</span>
           </div>
         </div>
-        <div class="info-area">
-          <div class="icon-info">
-            <div class="icgreen iccol">
-              <div id="green-info" class="infoicn -dj-green">6</div>
-              <div class="infotxt">Answered</div>
-            </div>
-            <div class="icred iccol">
-              <div id="red-info" class="infoicn -dj-red">5</div>
-              <span class="infotxt">Not answered</span>
-            </div>
-            <div class="icviolet iccol">
-              <div id="violet-info" class="infoicn -dj-violet">3</div>
-              <span class="infotxt">Flagged for review</span>
-            </div>
-            <div  class="icwhite iccol">
-              <div id="gray-info" class="infoicn -dj-gray">1</div>
-              <span class="infotxt">Yet to visit</span>
-            </div>
-          </div>
-          <hr />
-          <div class="ques-status">
-            <p class="ques-status-head">Questions</p>
-            <div id="grid-con" class="grid-container">
-              <div id="grid-item-1"  class="grid-item -hover ">1</div>
-              <div id="grid-item-2"  class="grid-item -hover ">2</div>
-              <div id="grid-item-3"  class="grid-item -hover ">3</div>
-              <div id="grid-item-4"  class="grid-item -hover ">4</div>
-              <div id="grid-item-5"  class="grid-item -hover ">5</div>
-              <div id="grid-item-6"  class="grid-item -hover ">6</div>
-              <div id="grid-item-7"  class="grid-item -hover ">7</div>
-              <div id="grid-item-8"  class="grid-item -hover ">8</div>
-              <div id="grid-item-9"  class="grid-item -hover ">9</div>
-              <div id="grid-item-10" class="grid-item -hover ">10</div>
-              <div id="grid-item-11" class="grid-item -hover ">11</div>
-              <div id="grid-item-12" class="grid-item -hover ">12</div>
-              <div id="grid-item-13" class="grid-item -hover ">13</div>
-              <div id="grid-item-14" class="grid-item -hover ">14</div>
-              <div id="grid-item-15" class="grid-item -hover ">15</div>
-            </div>
-          </div>
-          <div class="time-sub">
-            <div class="timer-txt">Time left: </div>
-              
-              <div class="timer"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></div>
-            </div>
-            <button onclick="confirmSubmit(1)" class="submit">Submit</button>
-          </div>
+        <button onclick="confirmSubmit(1)" class="submit">Submit</button>
+      </div>
+      <div class="question-area">
+        <div id="question-part" class="question"></div>
+        <div class="nav-pallete">
+          <button id="prevbtn" class="prev-btn btn -hover">&larr;</button>
+          <button id="clearbtn" class="clear-btn btn -hover">Clear</button>
+          <button id="flagbtn" class="flag-btn btn -hover">Flag</button>
+          <button id="nextbtn" class="next-btn btn -hover">&rarr;</button>
+        </div>
+      </div>
+      <div class="icon-info grid-container-2">
+        <div class="icgreen iccol">
+          <div id="green-info" class="infoicn -dj-green">6</div>
+          <div class="infotxt">Answered</div>
+        </div>
+        <div class="icred iccol">
+          <div id="red-info" class="infoicn -dj-red">5</div>
+          <span class="infotxt">Not answered</span>
+        </div>
+        <div class="icviolet iccol">
+          <div id="violet-info" class="infoicn -dj-violet">3</div>
+          <span class="infotxt">Flagged for review</span>
+        </div>
+        <div class="icwhite iccol">
+          <div id="gray-info" class="infoicn -dj-gray">1</div>
+          <span class="infotxt">Yet to visit</span>
+        </div>
+      </div>
+
+      <div class="ques-status">
+        <p class="ques-status-head">< &nbsp;Question Pallete &nbsp; ></p>
+        <hr />
+        <div id="grid-con" class="grid-container">
+          <div id="grid-item-1" class="grid-item -hover">1</div>
+          <div id="grid-item-2" class="grid-item -hover">2</div>
+          <div id="grid-item-3" class="grid-item -hover">3</div>
+          <div id="grid-item-4" class="grid-item -hover">4</div>
+          <div id="grid-item-5" class="grid-item -hover">5</div>
+          <div id="grid-item-6" class="grid-item -hover">6</div>
+          <div id="grid-item-7" class="grid-item -hover">7</div>
+          <div id="grid-item-8" class="grid-item -hover">8</div>
+          <div id="grid-item-9" class="grid-item -hover">9</div>
+          <div id="grid-item-10" class="grid-item -hover">10</div>
+          <div id="grid-item-11" class="grid-item -hover">11</div>
+          <div id="grid-item-12" class="grid-item -hover">12</div>
+          <div id="grid-item-13" class="grid-item -hover">13</div>
+          <div id="grid-item-14" class="grid-item -hover">14</div>
+          <div id="grid-item-15" class="grid-item -hover">15</div>
         </div>
       </div>
     </div>
+
     <!--~~~~~~~~~~~~~~~~~~~ Ṛesult Page~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div class="hide" id="result">
       <div class="scorecard">
@@ -143,14 +151,16 @@
         </div>
       </div>
       <div class="flex" id="buttons ">
-        <button class="btn-btn" onclick=location=URL id="startagain">Start Again</button>
+        <button class="btn-btn" onclick="location" ="URL" id="startagain">
+          Start Again
+        </button>
         <button class="btn-btn" id="share">Share</button>
       </div>
     </div>
     <!-- .~~~~~~~~~~~~~~~~~Loading Window~~~~~~~~~~~~~~~~~~~ -->
-      <div class="loadwindow hide" id="loading">
-        <div class="loader "></div>
-      </div>
+    <div class="loadwindow hide" id="loading">
+      <div class="loader"></div>
+    </div>
   </body>
   <script src="script.js"></script>
 </html>

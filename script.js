@@ -59,6 +59,8 @@ function iconCount() {
     15 - answed - notans - flaged;
 }
 function showNextQues() {
+  iconCount();
+
   if (curct < 14) {
     console.log("next");
 
@@ -74,6 +76,8 @@ function showNextQues() {
 }
 
 function showPrevQues() {
+  iconCount();
+
   if (curct >= 1) {
     console.log("prev");
     if (quesState[curct] != 1) {
@@ -90,18 +94,24 @@ function showPrevQues() {
 }
 
 function handleClear() {
+  iconCount();
+
   console.log("clear");
   document.getElementById(`reset-${curct + 1}`).click();
 
   setState(curct, 2);
 }
 function FlagCurQues() {
+  iconCount();
+
   if (quesState[curct] != 1) {
     quesState[curct] = 3;
     setState(curct, 3);
   }
 }
 function setState(pos, state) {
+  iconCount();
+
   if (state == 0) {
     document.getElementById(`grid-item-${pos + 1}`).style.backgroundColor =
       "gray";
@@ -125,7 +135,6 @@ function timerstart() {
   var time = setInterval(myTimer, 1000);
   document.getElementById("min").innerHTML = "15";
   function myTimer() {
-    iconCount();
     document.getElementById("sec").innerHTML =
       sec % 60 > 9 ? sec % 60 : "0" + (sec % 60);
     document.getElementById("min").innerHTML =
@@ -171,19 +180,21 @@ function showResult() {
     }
   }
 
-  document.getElementById("mainpage").classList.add("hide");
+  document.getElementById("bodyyy").classList.add("hide");
   document.getElementById("result").classList.remove("hide");
   document.getElementById("score-score").innerHTML = `${score}/15`;
   document.getElementById("attemptedct").innerHTML += `${score + wrongg}`;
   document.getElementById("correctct").innerHTML += `${score}`;
   document.getElementById("wrongct").innerHTML += `${wrongg}`;
 }
-
 async function setQuesFromAPI() {
+  // let checkk = 1;
+
   let url =
     "https://opentdb.com/api.php?amount=15&category=18&difficulty=easy&type=multiple";
   const response = await fetch(url);
   const data = await response.json();
+  console.log(data.response_code);
   return data;
 }
 
@@ -206,12 +217,13 @@ function createQuestions(questions) {
 
     let formx = document.createElement("form");
     formx.id = `form-${i + 1}`;
-    formx.classList.add("grid-container");
+    formx.classList.add("grid-container-option");
     ques_area.appendChild(formx);
     for (let j = 0; j < 4; j++) {
       var input = document.createElement("input");
       input.type = "radio";
       input.id = `choice-${i + 1}-${j + 1}`;
+      input.classList.add("choicee");
       input.value = questions[i].answers[j].correct;
       input.name = `ch-${i + 1}`;
       input.addEventListener("click", () => {
@@ -243,39 +255,45 @@ function createQuestions(questions) {
 }
 function startQuiz() {
   document.getElementById("loading").classList.remove("hide");
-
-  setQuesFromAPI().then((data) => {
-    let questions = [];
-    for (let c = 0; c < 15; c++) {
-      questions[c] = {
-        question: {},
-        answers: [
-          { option: {}, correct: {} },
-          { option: {}, correct: {} },
-          { option: {}, correct: {} },
-          { option: {}, correct: {} },
-        ],
-      };
-    }
-    for (let i = 0; i < 15; i++) {
-      questions[i].question = data.results[i].question;
-      let rnd = Math.floor(Math.random() * 4);
-      let k = 0;
-      for (let j = 0; j < 4; j++) {
-        if (j == rnd) {
-          questions[i].answers[j].option = data.results[i].correct_answer;
-          questions[i].answers[j].correct = true;
-        } else {
-          questions[i].answers[j].option = data.results[i].incorrect_answers[k];
-          questions[i].answers[j].correct = false;
-          ++k;
+  setQuesFromAPI()
+    .then((data) => {
+      let questions = [];
+      for (let c = 0; c < 15; c++) {
+        questions[c] = {
+          question: {},
+          answers: [
+            { option: {}, correct: {} },
+            { option: {}, correct: {} },
+            { option: {}, correct: {} },
+            { option: {}, correct: {} },
+          ],
+        };
+      }
+      for (let i = 0; i < 15; i++) {
+        questions[i].question = data.results[i].question;
+        let rnd = Math.floor(Math.random() * 4);
+        let k = 0;
+        for (let j = 0; j < 4; j++) {
+          if (j == rnd) {
+            questions[i].answers[j].option = data.results[i].correct_answer;
+            questions[i].answers[j].correct = true;
+          } else {
+            questions[i].answers[j].option =
+              data.results[i].incorrect_answers[k];
+            questions[i].answers[j].correct = false;
+            ++k;
+          }
         }
       }
-    }
-    document.getElementById("loading").classList.add("hide");
-    createQuestions(questions);
-    timerstart();
-    document.getElementById("startwin").style.display = "none";
-    document.getElementById("bodyyy").style.display = "flex";
-  });
+      document.getElementById("loading").classList.add("hide");
+      createQuestions(questions);
+      timerstart();
+      iconCount();
+
+      document.getElementById("startwin").classList.add("hide");
+      document.getElementById("bodyyy").classList.remove("hide");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
