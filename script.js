@@ -64,12 +64,12 @@ function showNextQues() {
   if (curct < 14) {
     console.log("next");
 
-    ++curct;
     if (quesState[curct] != 1) {
       if (quesState[curct] != 3) {
         setState(curct, 2);
       }
     }
+    ++curct;
     document.getElementById(`question-${curct}`).classList.add("hide");
     document.getElementById(`question-${curct + 1}`).classList.remove("hide");
   }

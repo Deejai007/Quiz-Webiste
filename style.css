@@ -475,6 +475,11 @@ body {
   background-color: rgba(255, 255, 255, 0.075);
   border-radius: 32px;
 }
+#startwin h1 {
+  font-family: "Rubik Dirt", cursive;
+  font-size: 48px;
+  text-align: center;
+}
 .start-img {
   width: 440px;
 }
